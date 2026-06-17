@@ -1,1 +1,6 @@
-
+{
+  "entity.aivillager.ai_villager": "AI Villager",
+  "entity.aivillager.ai_wandering_trader": "AI Wandering Trader",
+  "item.aivillager.ai_villager_spawn_egg": "AI Villager Spawn Egg",
+  "item.aivillager.ai_wandering_trader_spawn_egg": "AI Wandering Trader Spawn Egg"
+}
