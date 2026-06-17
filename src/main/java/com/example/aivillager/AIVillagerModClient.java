@@ -9,8 +9,8 @@ public class AIVillagerModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(AIVillagerMod.AI_VILLAGER,
-            (context) -> new VillagerEntityRenderer(context));
+            ctx -> new VillagerEntityRenderer(ctx));
         EntityRendererRegistry.register(AIVillagerMod.AI_WANDERING_TRADER,
-            (context) -> new WanderingTraderEntityRenderer(context));
+            ctx -> new WanderingTraderEntityRenderer(ctx));
     }
 }
