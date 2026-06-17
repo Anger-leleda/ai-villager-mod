@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.World;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.world.poi.PointOfInterestTypes;
 import java.util.*;
 
 public class VillageAIVillagerSpawner {
@@ -32,7 +32,7 @@ public class VillageAIVillagerSpawner {
     private static Set<BlockPos> find(ServerWorld w) {
         Set<BlockPos> cs=new HashSet<>();List<BlockPos> beds=new ArrayList<>(),ws=new ArrayList<>();
         BlockPos pp=w.getPlayers().isEmpty()?BlockPos.ORIGIN:w.getPlayers().get(0).getBlockPos();
-        BlockPos.stream(pp.add(-128,-64,-128),pp.add(128,128,128)).forEach(p->{if(w.isChunkLoaded(p.getX()>>4,p.getZ()>>4))w.getPointOfInterestStorage().getType(p).ifPresent(t->{if(t==PointOfInterestType.HOME)beds.add(p.toImmutable());else if(t==PointOfInterestType.FARMER||t==PointOfInterestType.LIBRARIAN)ws.add(p.toImmutable());});});
+        BlockPos.stream(pp.add(-128,-64,-128),pp.add(128,128,128)).forEach(p->{if(w.isChunkLoaded(p.getX()>>4,p.getZ()>>4))w.getPointOfInterestStorage().getType(p).ifPresent(t->{if(t==PointOfInterestTypes.HOME)beds.add(p.toImmutable());else if(t==PointOfInterestTypes.FARMER||t==PointOfInterestTypes.LIBRARIAN)ws.add(p.toImmutable());});});
         if(!beds.isEmpty())cs=cluster(beds,ws);
         return cs;
     }
