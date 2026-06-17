@@ -1,1 +1,20 @@
-
+{
+  "schemaVersion": 1,
+  "id": "aivillager",
+  "version": "${version}",
+  "name": "AI Villager & Trader Mod",
+  "description": "智能AI村民和流浪商人，远古Bug物品",
+  "authors": ["YourName"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.example.aivillager.AIVillagerMod"],
+    "client": ["com.example.aivillager.AIVillagerModClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": [">=1.20", "<1.21"],
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
