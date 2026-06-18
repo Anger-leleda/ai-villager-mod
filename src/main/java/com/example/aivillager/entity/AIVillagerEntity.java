@@ -1,6 +1,6 @@
 package com.example.aivillager.entity;
 
-import com.example.aivillager.AIVillagerMod;
+import com.example.aivillager.AIVillagerConfig;
 import com.example.aivillager.ai.AIVillagerBrain;
 import com.example.aivillager.world.AINameGenerator;
 
@@ -33,8 +33,8 @@ public class AIVillagerEntity extends VillagerEntity {
     }
 
     private void assignRandomPersonality() {
-        double[] chances = AIVillagerMod.AIVillagerConfig.config.personalityChances;
-        String[] types = AIVillagerMod.AIVillagerConfig.config.personalityTypes;
+        double[] chances = AIVillagerConfig.config.personalityChances;
+        String[] types = AIVillagerConfig.config.personalityTypes;
         double roll = this.random.nextDouble(), cum = 0.0;
         for (int i = 0; i < types.length; i++) {
             cum += chances[i];
@@ -65,7 +65,7 @@ public class AIVillagerEntity extends VillagerEntity {
     }
 
     private void handleGift(PlayerEntity player, net.minecraft.item.ItemStack gift) {
-        float ti = (float) AIVillagerMod.AIVillagerConfig.config.giftTrustIncrease;
+        float ti = (float) AIVillagerConfig.config.giftTrustIncrease;
         if (gift.getItem() == Items.EMERALD) ti *= 2;
         else if (gift.getItem() == Items.DIAMOND) ti *= 3;
         adjustTrust(ti);
@@ -76,13 +76,13 @@ public class AIVillagerEntity extends VillagerEntity {
 
     private void startConversation(PlayerEntity player) {
         player.sendMessage(Text.literal("<" + getName().getString() + "> " + aiBrain.generateGreeting(player)), false);
-        interactionCooldown = AIVillagerMod.AIVillagerConfig.config.interactionCooldown;
+        interactionCooldown = AIVillagerConfig.config.interactionCooldown;
     }
 
     @Override
     public boolean damage(DamageSource source, float amount) {
         if (source.getAttacker() instanceof PlayerEntity p) {
-            adjustTrust(-(float) AIVillagerMod.AIVillagerConfig.config.hurtTrustDecrease);
+            adjustTrust(-(float) AIVillagerConfig.config.hurtTrustDecrease);
             p.sendMessage(Text.literal("<" + getName().getString() + "> 为什么伤害我？！"), false);
         }
         return super.damage(source, amount);
@@ -92,7 +92,7 @@ public class AIVillagerEntity extends VillagerEntity {
     public float getTrustLevel() { return trustLevel; }
     public void adjustTrust(float a) { trustLevel = Math.max(0, Math.min(100, trustLevel + a)); }
     public int getKnowledgeLevel() { return knowledgeLevel; }
-    public void learnNewThings(int a) { knowledgeLevel = Math.min(AIVillagerMod.AIVillagerConfig.config.maxKnowledgeLevel, knowledgeLevel + a); }
+    public void learnNewThings(int a) { knowledgeLevel = Math.min(AIVillagerConfig.config.maxKnowledgeLevel, knowledgeLevel + a); }
     public AIVillagerBrain getAiBrain() { return aiBrain; }
     public boolean isNaturalSpawned() { return isNaturalSpawned; }
     public void setNaturalSpawned(boolean v) { isNaturalSpawned = v; }
