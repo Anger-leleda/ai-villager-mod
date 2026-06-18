@@ -103,11 +103,6 @@ public class TraderTradeGenerator {
         }
         if (item!=null) {
             NbtCompound nbt=item.getOrCreateNbt(); nbt.putBoolean("AncientBug",true);
-            NbtCompound d=nbt.getCompound("display"); if(d.isEmpty())d=new NbtCompound();
-            NbtList lore=new NbtList();
-            lore.add(NbtString.of(Text.Serialization.toJsonString(Text.literal("§c⚠ 远古遗物 ⚠").formatted(Formatting.BOLD))));
-            lore.add(NbtString.of(Text.Serialization.toJsonString(Text.literal("§7本不应存在于这个世界..."))));
-            d.put("Lore",lore); nbt.put("display",d);
             o.add(new TradeOffer(new ItemStack(Items.EMERALD,1),item,1,50,1f));
             if(t!=null)t.getAiBrain().setHasAncientItem(true);
         }
