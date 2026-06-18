@@ -114,7 +114,6 @@ public class AIWanderingTraderEntity extends WanderingTraderEntity {
         }
     }
 
-    @Override
     public void afterUsing(TradeOfferList offer) {
         adjustTrust("generous".equals(personality) ? 3.0f : 2.0f);
         if (random.nextFloat() < ("generous".equals(personality) ? 0.4f : 0.2f) && trustLevel > 50)
