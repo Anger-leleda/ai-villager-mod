@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "id": "aivillager",
-  "version": "${version}",
+  "version": "2.0.0",
   "name": "AI Villager & Trader Mod",
   "description": "智能AI村民和流浪商人，远古Bug物品",
-  "authors": ["YourName"],
+  "authors": ["Anger-leleda"],
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
