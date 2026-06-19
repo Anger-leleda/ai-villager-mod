@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "aivillager",
-  "version": "2.0.0",
-  "name": "AI Villager & Trader Mod",
-  "description": "智能AI村民和流浪商人，远古Bug物品",
+  "version": "3.0.0",
+  "name": "AI Villager Trade Enhancer",
+  "description": "增强原版村民和流浪商人交易系统，远古Bug物品",
   "authors": ["Anger-leleda"],
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
-    "main": ["com.example.aivillager.AIVillagerMod"],
-    "client": ["com.example.aivillager.AIVillagerModClient"]
+    "main": ["com.example.aivillager.AIVillagerMod"]
   },
+  "mixins": ["aivillager.mixins.json"],
   "depends": {
     "fabricloader": ">=0.15.0",
     "minecraft": [">=1.20", "<1.21"],
