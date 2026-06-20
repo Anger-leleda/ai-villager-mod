@@ -15,7 +15,6 @@ public class TraderTradeGenerator {
     private static final Random R = new Random();
     private static final Set<Enchantment> BLACK = Set.of(Enchantments.BINDING_CURSE, Enchantments.VANISHING_CURSE);
 
-    // ===== 村民额外交易 =====
     public static void generateVillagerTrades(TradeOfferList offers, Random r) {
         if (r.nextFloat() < 0.3f) {
             addEnchantedTrade(offers, r, "generous");
@@ -25,16 +24,13 @@ public class TraderTradeGenerator {
         }
     }
 
-    // ===== 流浪商人额外交易 =====
     public static void generateWanderingTraderTrades(TradeOfferList offers, Random r) {
-        // 慷慨型60%
         String personality;
         double roll = r.nextDouble();
         if (roll < AIVillagerConfig.config.generousTraderChance) personality = "generous";
         else if (roll < AIVillagerConfig.config.generousTraderChance + AIVillagerConfig.config.mysteriousTraderChance) personality = "mysterious";
         else personality = "shrewd";
 
-        // 添加附魔交易
         int count = switch (personality) {
             case "generous" -> r.nextInt(3) + 2;
             case "mysterious" -> r.nextInt(2) + 1;
@@ -44,14 +40,12 @@ public class TraderTradeGenerator {
             addEnchantedTrade(offers, r, personality);
         }
 
-        // 远古物品
         double ancientChance = "mysterious".equals(personality) ? AIVillagerConfig.config.ancientBugChanceMysterious : AIVillagerConfig.config.ancientBugChanceNormal;
         if (r.nextFloat() < ancientChance) {
             addAncientItem(offers, r);
         }
     }
 
-    // ===== 附魔物品交易 =====
     private static void addEnchantedTrade(TradeOfferList offers, Random r, String personality) {
         ItemStack item = genEnchantedItem(r, personality);
         if (item == null) return;
@@ -91,7 +85,6 @@ public class TraderTradeGenerator {
         return new ItemStack(Items.ENCHANTED_BOOK);
     }
 
-    // ===== 附魔逻辑 =====
     private static void applyEnchants(ItemStack stack, Random r, String personality) {
         List<Enchantment> avail = getAvailable(stack);
         if (avail.isEmpty()) return;
@@ -138,7 +131,6 @@ public class TraderTradeGenerator {
         return Math.max(3, c);
     }
 
-    // ===== 远古Bug物品 =====
     private static void addAncientItem(TradeOfferList offers, Random r) {
         ItemStack item = switch (r.nextInt(6)) {
             case 0 -> allProtArmor(r);
@@ -154,8 +146,8 @@ public class TraderTradeGenerator {
             NbtCompound display = nbt.getCompound("display");
             if (display.isEmpty()) display = new NbtCompound();
             NbtList lore = new NbtList();
-            lore.add(NbtString.of(Text.Serialization.toJsonString(Text.literal("§c⚠ 远古遗物 ⚠").formatted(Formatting.BOLD))));
-            lore.add(NbtString.of(Text.Serialization.toJsonString(Text.literal("§7本不应存在于这个世界..."))));
+            lore.add(NbtString.of(Text.Serializer.toJson(Text.literal("§c⚠ 远古遗物 ⚠").formatted(Formatting.BOLD))));
+            lore.add(NbtString.of(Text.Serializer.toJson(Text.literal("§7本不应存在于这个世界..."))));
             display.put("Lore", lore);
             nbt.put("display", display);
             offers.add(new TradeOffer(new ItemStack(Items.EMERALD, 1), item, 1, 50, 1f));
