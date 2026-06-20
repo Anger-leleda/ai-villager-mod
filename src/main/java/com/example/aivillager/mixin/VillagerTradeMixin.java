@@ -11,11 +11,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(VillagerEntity.class)
 public class VillagerTradeMixin {
 
-    @Inject(method = "fillRecipes", at = @At("TAIL"))
+    @Inject(method = "fillRecipes", at = @At("TAIL"), require = 0)
     private void addCustomTrades(CallbackInfo ci) {
-        VillagerEntity self = (VillagerEntity) (Object) this;
-        TradeOfferList offers = self.getOffers();
-        java.util.Random r = new java.util.Random();
-        TraderTradeGenerator.generateVillagerTrades(offers, r);
+        try {
+            VillagerEntity self = (VillagerEntity) (Object) this;
+            TradeOfferList offers = self.getOffers();
+            java.util.Random r = new java.util.Random();
+            TraderTradeGenerator.generateVillagerTrades(offers, r);
+        } catch (Exception ignored) {}
     }
 }
